@@ -33,6 +33,8 @@ public:
     vector<Meld*> possible_new_melds;
     vector<Card> possible_melds;
     string draw_from;
+    vector<int> discard_index;
+    vector<int> no_discard_index;
 
     /*Functions --------------------------------*/
 
@@ -46,6 +48,7 @@ public:
     void put_card(Card card, Meld meld, int index);
     int get_score();
     void print_hand();
+
 };
 
 

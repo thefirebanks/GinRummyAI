@@ -6,23 +6,23 @@
 
 #IncludeRegexTransform: 
 
-/Users/dafirebanks/CLionProjects/TestingGin/cmake-build-debug/Card.cpp
+/Users/jacobarons/CLionProjects/TestingGummy/cmake-build-debug/Card.cpp
 iostream
 -
 Card.h
-/Users/dafirebanks/CLionProjects/TestingGin/cmake-build-debug/Card.h
+/Users/jacobarons/CLionProjects/TestingGummy/cmake-build-debug/Card.h
 
-/Users/dafirebanks/CLionProjects/TestingGin/cmake-build-debug/Card.h
+/Users/jacobarons/CLionProjects/TestingGummy/cmake-build-debug/Card.h
 stdlib.h
 -
 string
 -
 
-/Users/dafirebanks/CLionProjects/TestingGin/cmake-build-debug/Deck.cpp
+/Users/jacobarons/CLionProjects/TestingGummy/cmake-build-debug/Deck.cpp
 Deck.h
-/Users/dafirebanks/CLionProjects/TestingGin/cmake-build-debug/Deck.h
+/Users/jacobarons/CLionProjects/TestingGummy/cmake-build-debug/Deck.h
 
-/Users/dafirebanks/CLionProjects/TestingGin/cmake-build-debug/Deck.h
+/Users/jacobarons/CLionProjects/TestingGummy/cmake-build-debug/Deck.h
 stdlib.h
 -
 iostream
@@ -32,13 +32,13 @@ string
 vector
 -
 Card.h
-/Users/dafirebanks/CLionProjects/TestingGin/cmake-build-debug/Card.h
+/Users/jacobarons/CLionProjects/TestingGummy/cmake-build-debug/Card.h
 
-/Users/dafirebanks/CLionProjects/TestingGin/cmake-build-debug/Meld.cpp
+/Users/jacobarons/CLionProjects/TestingGummy/cmake-build-debug/Meld.cpp
 Meld.h
-/Users/dafirebanks/CLionProjects/TestingGin/cmake-build-debug/Meld.h
+/Users/jacobarons/CLionProjects/TestingGummy/cmake-build-debug/Meld.h
 
-/Users/dafirebanks/CLionProjects/TestingGin/cmake-build-debug/Meld.h
+/Users/jacobarons/CLionProjects/TestingGummy/cmake-build-debug/Meld.h
 stdlib.h
 -
 iostream
@@ -46,29 +46,29 @@ iostream
 vector
 -
 Card.h
-/Users/dafirebanks/CLionProjects/TestingGin/cmake-build-debug/Card.h
+/Users/jacobarons/CLionProjects/TestingGummy/cmake-build-debug/Card.h
 
-/Users/dafirebanks/CLionProjects/TestingGin/cmake-build-debug/Player.cpp
+/Users/jacobarons/CLionProjects/TestingGummy/cmake-build-debug/Player.cpp
 Player.h
-/Users/dafirebanks/CLionProjects/TestingGin/cmake-build-debug/Player.h
+/Users/jacobarons/CLionProjects/TestingGummy/cmake-build-debug/Player.h
 
-/Users/dafirebanks/CLionProjects/TestingGin/cmake-build-debug/Player.h
+/Users/jacobarons/CLionProjects/TestingGummy/cmake-build-debug/Player.h
 vector
 -
 iostream
 -
 Deck.h
-/Users/dafirebanks/CLionProjects/TestingGin/cmake-build-debug/Deck.h
+/Users/jacobarons/CLionProjects/TestingGummy/cmake-build-debug/Deck.h
 Card.h
-/Users/dafirebanks/CLionProjects/TestingGin/cmake-build-debug/Card.h
+/Users/jacobarons/CLionProjects/TestingGummy/cmake-build-debug/Card.h
 Meld.h
-/Users/dafirebanks/CLionProjects/TestingGin/cmake-build-debug/Meld.h
+/Users/jacobarons/CLionProjects/TestingGummy/cmake-build-debug/Meld.h
 
-/Users/dafirebanks/CLionProjects/TestingGin/cmake-build-debug/Table.cpp
+/Users/jacobarons/CLionProjects/TestingGummy/cmake-build-debug/Table.cpp
 Table.h
-/Users/dafirebanks/CLionProjects/TestingGin/cmake-build-debug/Table.h
+/Users/jacobarons/CLionProjects/TestingGummy/cmake-build-debug/Table.h
 
-/Users/dafirebanks/CLionProjects/TestingGin/cmake-build-debug/Table.h
+/Users/jacobarons/CLionProjects/TestingGummy/cmake-build-debug/Table.h
 vector
 -
 iostream
@@ -78,31 +78,31 @@ set
 stdlib.h
 -
 Deck.h
-/Users/dafirebanks/CLionProjects/TestingGin/cmake-build-debug/Deck.h
+/Users/jacobarons/CLionProjects/TestingGummy/cmake-build-debug/Deck.h
 Card.h
-/Users/dafirebanks/CLionProjects/TestingGin/cmake-build-debug/Card.h
+/Users/jacobarons/CLionProjects/TestingGummy/cmake-build-debug/Card.h
 Player.h
-/Users/dafirebanks/CLionProjects/TestingGin/cmake-build-debug/Player.h
+/Users/jacobarons/CLionProjects/TestingGummy/cmake-build-debug/Player.h
 Meld.h
-/Users/dafirebanks/CLionProjects/TestingGin/cmake-build-debug/Meld.h
+/Users/jacobarons/CLionProjects/TestingGummy/cmake-build-debug/Meld.h
 
-/Users/dafirebanks/CLionProjects/TestingGin/cmake-build-debug/Testing .cpp
+/Users/jacobarons/CLionProjects/TestingGummy/cmake-build-debug/Testing .cpp
 iostream
 -
 Card.cpp
-/Users/dafirebanks/CLionProjects/TestingGin/cmake-build-debug/Card.cpp
+/Users/jacobarons/CLionProjects/TestingGummy/cmake-build-debug/Card.cpp
 Deck.cpp
-/Users/dafirebanks/CLionProjects/TestingGin/cmake-build-debug/Deck.cpp
+/Users/jacobarons/CLionProjects/TestingGummy/cmake-build-debug/Deck.cpp
 Meld.cpp
-/Users/dafirebanks/CLionProjects/TestingGin/cmake-build-debug/Meld.cpp
+/Users/jacobarons/CLionProjects/TestingGummy/cmake-build-debug/Meld.cpp
 Player.cpp
-/Users/dafirebanks/CLionProjects/TestingGin/cmake-build-debug/Player.cpp
+/Users/jacobarons/CLionProjects/TestingGummy/cmake-build-debug/Player.cpp
 Table.cpp
-/Users/dafirebanks/CLionProjects/TestingGin/cmake-build-debug/Table.cpp
+/Users/jacobarons/CLionProjects/TestingGummy/cmake-build-debug/Table.cpp
 
-/Users/dafirebanks/CLionProjects/TestingGin/cmake-build-debug/main.cpp
+/Users/jacobarons/CLionProjects/TestingGummy/cmake-build-debug/main.cpp
 iostream
 -
 Testing .cpp
-/Users/dafirebanks/CLionProjects/TestingGin/cmake-build-debug/Testing .cpp
+/Users/jacobarons/CLionProjects/TestingGummy/cmake-build-debug/Testing .cpp
 
