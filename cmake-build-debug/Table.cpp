@@ -42,6 +42,8 @@ void Table::evaluate_draw(Player* p){
 /* Updates possible new melds for player AFTER drawing */
 void Table::evaluate_hand(Player* p){
 
+    /* CHECK HAND AGAINST MELD_LIST */
+
     //If there are no current possible melds
     if (p->possible_melds.empty()){
 
@@ -71,6 +73,7 @@ void Table::evaluate_hand(Player* p){
                 if ((c1.get_value() + 1 == c2.get_value()) || (c1.get_value() + 2 == c2.get_value())){
                     p->possible_melds.push_back(c1);
                     p->possible_melds.push_back(c2);
+
                 }
             }
         }
@@ -86,6 +89,9 @@ void Table::evaluate_hand(Player* p){
             // Case where we have 6D, 7D, and we are missing an 8D or a 5D
             if ((p->hand[j].get_suit() == first.get_suit() && (p->hand[j].get_value() + 1 == first.get_value()) && (p->hand[j].get_value() == second.get_value() - 2)) || (p->hand[j].get_suit() == second.get_suit() && (p->hand[j].get_value() - 1 == second.get_value())  && (p->hand[j].get_value() == first.get_value() + 2))){
 
+
+
+
                 Meld* n1_meld = new Meld(first, second, p->hand[j]);
                 //Meld* extra = &n1_meld;
                 p->possible_melds.erase(p->possible_melds.begin() + i);
@@ -98,15 +104,16 @@ void Table::evaluate_hand(Player* p){
             // Case where we have 6D, 6H, and we see 6S or 6C
             else if ((first.get_value() == second.get_value()) && (p->hand[j].get_value() == second.get_value())){
                 if(p->hand[j].get_suit() != first.get_suit() && p->hand[j].get_suit() != second.get_suit()){
+
                     cout<<"GOT HERE BRO"<<endl;
 
-                    Meld n2_meld = Meld(first, second, p->hand[j]);
-                    Meld *moreextra = &n2_meld;
+                    Meld* n2_meld = new Meld(first, second, p->hand[j]);
+
 
                     p->possible_melds.erase(p->possible_melds.begin() + i);
                     p->possible_melds.erase(p->possible_melds.begin() + i);
 
-                    p->possible_new_melds.push_back(moreextra);
+                    p->possible_new_melds.push_back(n2_meld);
                 }
             }
         }
@@ -177,8 +184,19 @@ bool Table::evaluate_melds(Player* p){
     return added;
 }
 
-void Table::evaluate_discard(Player p){
-
+void Table::evaluate_discard(Player* p){
+    //clear useless cards
+    //fill useless_cards in order
+    for (Card c : p->hand){
+        if (p->possible_new_melds.begin() )
+    }
+    //pop_back();
+    if (p->useless_cards.size() != 0){
+        p->useless_cards.pop_back();
+    }
+    else{
+        //discard from potential_new_melds
+    }
 }
 
 bool Table::compare_suit(Card c1, Card c2) {
@@ -191,3 +209,5 @@ bool Table::compare_suit(Card c1, Card c2) {
 bool Table::compare_value(Card c1, Card c2) {
     return c1.get_value() < c2.get_value();
 }
+
+

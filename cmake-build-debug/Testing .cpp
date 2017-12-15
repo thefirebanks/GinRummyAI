@@ -227,6 +227,10 @@ void test_Table(){
         Cowboy.possible_melds[i].print_card();
     }
     */
+    Cowboy.draw(Cowboy.draw_from, &deck);
+    cout<<"Drew from: "<<Cowboy.draw_from<<endl;
+    Cowboy.print_hand();
+    //table.evaluate_hand(&Cowboy); // add if doesn't contain
     cout<<"Possible NEW melds are:"<<endl;
     for (int i = 0; i < Cowboy.possible_new_melds.size(); i++){
         cout<<"Meld "<<i<<" is:"<<endl;
