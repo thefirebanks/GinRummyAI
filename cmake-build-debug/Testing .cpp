@@ -214,8 +214,8 @@ void test_Table(){
     //Deal
     Cowboy.deal(&Scout, &deck);
     //Scout.hand.front().print_card();
-    Scout.discard(*Scout.hand.begin(), &deck);
 
+    Scout.discard(*Scout.hand.begin(), &deck);
     Cowboy.print_hand();
 
     table.evaluate_draw(&Cowboy);
@@ -228,14 +228,39 @@ void test_Table(){
     }
     */
     Cowboy.draw(Cowboy.draw_from, &deck);
+    //cout<<"Discard is: "<<deck.discard_pile.begin()<<endl;
     cout<<"Drew from: "<<Cowboy.draw_from<<endl;
     Cowboy.print_hand();
+
+
+
     //table.evaluate_hand(&Cowboy); // add if doesn't contain
     cout<<"Possible NEW melds are:"<<endl;
     for (int i = 0; i < Cowboy.possible_new_melds.size(); i++){
         cout<<"Meld "<<i<<" is:"<<endl;
         Cowboy.possible_new_melds.back()->print_meld();
     }
+    table.play_meld(&Cowboy);
+    table.updateMeld();
+
+    cout<<"Meld updated\n"<<endl;
+    cout<<"TABLE MELDS:"<<endl;
+    for (Meld m : table.melds){
+        m.print_meld();
+    }
+
+    table.evaluate_discard(&Cowboy);
+    Cowboy.print_hand();
+
+    Cowboy.discard(Cowboy.useless_cards.at(Cowboy.useless_cards.size()-1), table.current_deck);
+    Cowboy.print_hand();
+
+    cout<<"Printing Cowboy's melds: "<<endl;
+    for (int i = 0; i < Cowboy.meld_list.size(); i++){
+        Cowboy.meld_list[i].print_meld();
+    }
+
+
 
     //cout<<Cowboy.draw_from<<endl;
     //table.evaluate_hand(&Cowboy);

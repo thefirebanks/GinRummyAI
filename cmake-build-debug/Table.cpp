@@ -15,7 +15,7 @@ Table::Table(Player* p1, Player* p2, Deck* deck) {
 /* Given the current state, get the melds of all the players
  * and add them to the set of melds of the table */
 void Table::updateMeld() {
-
+    melds.clear();
     //Iterate through the players
     for (Player* p : players){
         for (Meld meld : p->meld_list){
@@ -47,7 +47,6 @@ void Table::evaluate_hand(Player* p){
     //If there are no current possible melds
     if (p->possible_melds.empty()){
 
-
         sort(p->hand.begin(), p->hand.end(), compare_value);
 
         //Check for melds in the format 6D, 6S, 6H
@@ -61,7 +60,7 @@ void Table::evaluate_hand(Player* p){
         }
 
 
-        //Check for melds in the format 6S,7S,8S
+        //Check for melds in the format 6S,7S,8S ---------- WHAT IS THIS?
         sort(p->hand.begin(), p->hand.end(), compare_suit);
 
         //Check for melds in the format 6D, 6S, 6H
@@ -73,7 +72,7 @@ void Table::evaluate_hand(Player* p){
                 if ((c1.get_value() + 1 == c2.get_value()) || (c1.get_value() + 2 == c2.get_value())){
                     p->possible_melds.push_back(c1);
                     p->possible_melds.push_back(c2);
-
+//MARK DRAW FROM AS DISCARD?
                 }
             }
         }
@@ -89,7 +88,9 @@ void Table::evaluate_hand(Player* p){
             // Case where we have 6D, 7D, and we are missing an 8D or a 5D
             if ((p->hand[j].get_suit() == first.get_suit() && (p->hand[j].get_value() + 1 == first.get_value()) && (p->hand[j].get_value() == second.get_value() - 2)) || (p->hand[j].get_suit() == second.get_suit() && (p->hand[j].get_value() - 1 == second.get_value())  && (p->hand[j].get_value() == first.get_value() + 2))){
 
-
+                    //have 6D, 8D, need 7D
+                if  (p->hand[j].get_value() == first.get_value()+1 && p->hand[j].get_value() == second.get_value()-1){
+                }
 
 
                 Meld* n1_meld = new Meld(first, second, p->hand[j]);
@@ -109,7 +110,6 @@ void Table::evaluate_hand(Player* p){
 
                     Meld* n2_meld = new Meld(first, second, p->hand[j]);
 
-
                     p->possible_melds.erase(p->possible_melds.begin() + i);
                     p->possible_melds.erase(p->possible_melds.begin() + i);
 
@@ -128,7 +128,7 @@ bool Table::evaluate_melds(Player* p){
 
     //Base case for when possible melds is empty
     if (p->possible_melds.size()==0){
-        evaluate_hand(p);
+        evaluate_hand(p); // Is this the only place it gets called?
 
         if (p->possible_melds.empty()){
             return false;
@@ -155,6 +155,13 @@ bool Table::evaluate_melds(Player* p){
         // Case where we have 6D, 7D, and we are missing an 8D or a 5D
         if ((top_discard.get_suit() == first.get_suit()) && (top_discard.get_value() + 1 == first.get_value() || top_discard.get_value() - 1 == second.get_value())) {
             //Create the meld
+
+            //if you have 6D 8D need 7D
+            if  (p->hand[i].get_value() == first.get_value()+1 && p->hand[i].get_value() == second.get_value()-1){
+
+            }
+
+
             Meld new_meld(first, second, top_discard);
 
             //Delete it from possible melds
@@ -186,9 +193,21 @@ bool Table::evaluate_melds(Player* p){
 
 void Table::evaluate_discard(Player* p){
     //clear useless cards
+    p->useless_cards.clear();
     //fill useless_cards in order
+    sort(p->hand.begin(), p->hand.end(), compare_value);
     for (Card c : p->hand){
-        if (p->possible_new_melds.begin() )
+        bool contains = false;
+        Card* hold = new Card(c.get_value(), c.get_suit(), c.get_score());
+
+        for (Card k : p->possible_melds){
+            if (k.get_value() == c.get_value() && k.get_suit() == c.get_suit()){ //if possible melds contains c
+                contains = true;
+            }
+        }
+        if (!contains){
+            p->useless_cards.push_back(*hold);
+        }
     }
     //pop_back();
     if (p->useless_cards.size() != 0){
@@ -198,6 +217,7 @@ void Table::evaluate_discard(Player* p){
         //discard from potential_new_melds
     }
 }
+
 
 bool Table::compare_suit(Card c1, Card c2) {
     if (c1.get_suit() == c2.get_suit())
@@ -210,4 +230,22 @@ bool Table::compare_value(Card c1, Card c2) {
     return c1.get_value() < c2.get_value();
 }
 
+void Table::play_meld(Player *p) {
+    if (p->possible_new_melds.size() != 0){ // If melds to play is not size zero
+        for (Meld* m : p->possible_new_melds){ //play melds to table
+            melds.insert(*m);
+            p->meld_list.push_back(*m);
+
+            for (int j = 0; j < m->meld.size(); j++) { // erase from hand
+                for (int i = 0; i < p->hand.size(); i++){
+                    if (p->hand[i].get_value() == m->meld[j].get_value() && p->hand[i].get_suit() == m->meld[j].get_suit()) {
+                        p->hand.erase(p->hand.begin()+i);
+                        i--;
+                    }
+                }
+            }
+            p->possible_new_melds.erase(p->possible_new_melds.begin());
+        }
+    }
+}
 
