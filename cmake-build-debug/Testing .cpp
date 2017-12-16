@@ -8,7 +8,7 @@
 #include "Meld.cpp"
 #include "Player.cpp"
 #include "Table.cpp"
-//#include "Move.cpp"
+#include "Move.cpp"
 
 
 void test_Deck(){
@@ -252,7 +252,15 @@ void test_Table(){
     table.evaluate_discard(&Cowboy);
     Cowboy.print_hand();
 
+    cout<<"PRINTING\n"<<endl;
+
     Cowboy.discard(Cowboy.useless_cards.at(Cowboy.useless_cards.size()-1), table.current_deck);
+
+    for (int i = 0; i < Cowboy.useless_cards.size(); i++){
+        Cowboy.useless_cards[i].print_card();
+
+    }
+
     Cowboy.print_hand();
 
     cout<<"Printing Cowboy's melds: "<<endl;
@@ -260,18 +268,194 @@ void test_Table(){
         Cowboy.meld_list[i].print_meld();
     }
 
-
-
-    //cout<<Cowboy.draw_from<<endl;
-    //table.evaluate_hand(&Cowboy);
-
-    /*
-    cout<<"Cards to compare are"<<endl;
-    Cowboy.hand[0].print_card();
-    Cowboy.hand[1].print_card();
-    */
-
 }
 
+void test_Move(){
+
+    /* Form possible moves ---------------------------------------- */
+
+    Deck deck = Deck();
+
+    Player p1 = Player("Cowboy");
+    Player p2 = Player("Scout");
+
+    deck.shuffle();
+
+    //Player 1 starts as the dealer, gives cards to p1 and p2
+    p1.deal(&p2, &deck);
+
+    p2.discard(*p2.hand.begin(), &deck);
+
+    Table table = Table(&p1, &p2, &deck);
+
+    vector<Move> moves;
+
+    //Evaluate the place to draw
+    table.evaluate_draw(&p1);
+
+    //Evaluate which cards are useful or not
+    table.evaluate_melds(&p1);
+
+    //Evaluate which card to discard
+    table.evaluate_discard(&p1);
+
+    for (int num : p1.discard_index){
+        Move move = Move(p1.draw_from, p1.possible_new_melds, num);
+        //move.print_move();
+        moves.push_back(move);
+        //temp_useless_cards.pop_back();
+
+    }
+
+    for (Move m : moves){
+        //cout<<m.move_sequence.size()<<endl;
+        m.print_move();
+    }
+
+    /* Do move ------------------------------------------ */
+    /*
+    Player *p;
+
+    if (player_markers[player_to_move] == 1){
+        p = &p1;
+    }
+    else if (player_markers[player_to_move] == 2){
+        p = &p2;
+    }
+    */
+
+    Player *p;
+    p = &p1;
+
+    //Nice move
+    Move move = moves[2];
+
+    cout<<"ELECTED MOVE BRO IS:"<<endl;
+    move.print_move();
+
+    cout<<"Hand before drawing is:"<<endl;
+    p->print_hand();
+
+    //Drawing
+    if (move.move_sequence[0] == 1) {
+        p->draw("Deck", &deck);
+    }
+    else if (move.move_sequence[0] == 2)
+        p->draw("Discard", &deck);
+
+    cout<<"Hand after drawing is:"<<endl;
+    p->print_hand();
+
+    //Melding
+    if (!(move.move_sequence[1] == 0)){
+        for (int i = 0; i < p->possible_new_melds.size(); i++){
+
+            Card c1 = p->possible_new_melds[i]->meld[0];
+            Card c2 = p->possible_new_melds[i]->meld[1];
+            Card c3 = p->possible_new_melds[i]->meld[2];
+            p->new_meld(c1, c2, c3);
+        }
+    }
+    table.updateMeld();
+    p->meld_list[0].print_meld();
+
+    cout<<"Card at "<<move.move_sequence[2]<<" is ";
+    p->hand[move.move_sequence[2]].print_card();
+
+    //Discard
+    p->discard(p->hand[move.move_sequence[2]], &deck);
+    cout<<"Hand after discarding is:"<<endl;
+    p->print_hand();
+
+
+    cout<<"Discarded card is:"<<endl;
+
+    cout<<table.current_deck->discard_pile.size()<<endl;
+    table.current_deck->discard_pile[1].print_card();
+
+    //BROVE!!!!!
+
+    cout<<"TIME FOR THE BROVE!"<<endl;
+
+    vector<Move> broves;
+
+
+    p1.possible_new_melds.clear();
+    p1.useless_cards.clear();
+    p1.possible_melds.clear();
+
+    p2.possible_new_melds.clear();
+    p2.useless_cards.clear();
+    p2.possible_melds.clear();
+
+    p2.print_hand();
+
+    //Evaluate the place to draw
+    table.evaluate_draw(&p2);
+
+//    p2.possible_new_melds[0]->print_meld();
+    //Evaluate which cards are useful or not
+    table.evaluate_melds(&p2);
+
+    //p2.possible_new_melds[0]->print_meld();
+    //Evaluate which card to discard
+    table.evaluate_discard(&p2);
+
+
+    for (int num : p2.discard_index){
+        Move move = Move(p2.draw_from, p2.possible_new_melds, num);
+        //move.print_move();
+        broves.push_back(move);
+        //temp_useless_cards.pop_back();
+    }
+
+    for (Move m : broves){
+        //cout<<m.move_sequence.size()<<endl;
+        m.print_move();
+    }
+
+    Player *pro;
+    pro = &p2;
+
+    Move brove = broves[2];
+
+    //Drawing
+    if (brove.move_sequence[0] == 1) {
+        pro->draw("Deck", &deck);
+    }
+    else if (brove.move_sequence[0] == 2)
+        pro->draw("Discard", &deck);
+
+    cout<<"Hand after drawing is:"<<endl;
+    pro->print_hand();
+
+    //Melding
+    if (!(brove.move_sequence[1] == 0)){
+        for (int i = 0; i < pro->possible_new_melds.size(); i++){
+
+            Card c1 = pro->possible_new_melds[i]->meld[0];
+            Card c2 = pro->possible_new_melds[i]->meld[1];
+            Card c3 = pro->possible_new_melds[i]->meld[2];
+            pro->new_meld(c1, c2, c3);
+        }
+    }
+    table.updateMeld();
+    //pro->meld_list[0].print_meld();
+
+    cout<<"Card at "<<brove.move_sequence[2]<<" is ";
+    pro->hand[brove.move_sequence[2]].print_card();
+
+    //Discard
+    pro->discard(pro->hand[brove.move_sequence[2]], &deck);
+    cout<<"Hand after discarding is:"<<endl;
+    pro->print_hand();
+
+
+    cout<<"Discarded card is:"<<endl;
+
+    cout<<table.current_deck->discard_pile.size()<<endl;
+    table.current_deck->discard_pile[2].print_card();
+
+}
 
 

@@ -25,11 +25,10 @@ public:
     void updateMeld();
     void play_meld(Player* p);
 
-
-    void evaluate_draw(Player* p);
-    void evaluate_hand(Player* p);
-    bool evaluate_melds(Player* p);
-    void evaluate_discard(Player* p);
+    void evaluate_draw(Player* p) const;
+    void evaluate_hand(Player* p) const;
+    bool evaluate_melds(Player* p) const;
+    void evaluate_discard(Player* p) const;
 
 
 
