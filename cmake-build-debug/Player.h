@@ -46,8 +46,8 @@ public:
     Meld new_meld(Card c1, Card c2, Card c3);
     Meld addon_meld(Card c1);
     void put_card(Card card, Meld meld, int index);
-    int get_score();
-    void print_hand();
+    int get_score() const;
+    void print_hand() const;
 
 };
 

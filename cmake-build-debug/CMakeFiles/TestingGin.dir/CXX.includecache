@@ -34,6 +34,26 @@ vector
 Card.h
 /Users/jacobarons/CLionProjects/TestingGummy/cmake-build-debug/Card.h
 
+/Users/jacobarons/CLionProjects/TestingGummy/cmake-build-debug/GinState.cpp
+GinState.h
+/Users/jacobarons/CLionProjects/TestingGummy/cmake-build-debug/GinState.h
+iostream
+-
+mcts.h
+/Users/jacobarons/CLionProjects/TestingGummy/cmake-build-debug/mcts.h
+
+/Users/jacobarons/CLionProjects/TestingGummy/cmake-build-debug/GinState.h
+algorithm
+-
+iostream
+-
+Table.h
+/Users/jacobarons/CLionProjects/TestingGummy/cmake-build-debug/Table.h
+Move.h
+/Users/jacobarons/CLionProjects/TestingGummy/cmake-build-debug/Move.h
+mcts.h
+/Users/jacobarons/CLionProjects/TestingGummy/cmake-build-debug/mcts.h
+
 /Users/jacobarons/CLionProjects/TestingGummy/cmake-build-debug/Meld.cpp
 Meld.h
 /Users/jacobarons/CLionProjects/TestingGummy/cmake-build-debug/Meld.h
@@ -47,6 +67,18 @@ vector
 -
 Card.h
 /Users/jacobarons/CLionProjects/TestingGummy/cmake-build-debug/Card.h
+
+/Users/jacobarons/CLionProjects/TestingGummy/cmake-build-debug/Move.cpp
+Move.h
+/Users/jacobarons/CLionProjects/TestingGummy/cmake-build-debug/Move.h
+
+/Users/jacobarons/CLionProjects/TestingGummy/cmake-build-debug/Move.h
+Table.h
+/Users/jacobarons/CLionProjects/TestingGummy/cmake-build-debug/Table.h
+Player.h
+/Users/jacobarons/CLionProjects/TestingGummy/cmake-build-debug/Player.h
+Meld.h
+/Users/jacobarons/CLionProjects/TestingGummy/cmake-build-debug/Meld.h
 
 /Users/jacobarons/CLionProjects/TestingGummy/cmake-build-debug/Player.cpp
 Player.h
@@ -99,10 +131,44 @@ Player.cpp
 /Users/jacobarons/CLionProjects/TestingGummy/cmake-build-debug/Player.cpp
 Table.cpp
 /Users/jacobarons/CLionProjects/TestingGummy/cmake-build-debug/Table.cpp
+Move.cpp
+/Users/jacobarons/CLionProjects/TestingGummy/cmake-build-debug/Move.cpp
 
 /Users/jacobarons/CLionProjects/TestingGummy/cmake-build-debug/main.cpp
 iostream
 -
 Testing .cpp
 /Users/jacobarons/CLionProjects/TestingGummy/cmake-build-debug/Testing .cpp
+GinState.cpp
+/Users/jacobarons/CLionProjects/TestingGummy/cmake-build-debug/GinState.cpp
+
+/Users/jacobarons/CLionProjects/TestingGummy/cmake-build-debug/mcts.h
+algorithm
+-
+cstdlib
+-
+future
+-
+iomanip
+-
+iostream
+-
+map
+-
+memory
+-
+random
+-
+set
+-
+sstream
+-
+string
+-
+thread
+-
+vector
+-
+omp.h
+-
 

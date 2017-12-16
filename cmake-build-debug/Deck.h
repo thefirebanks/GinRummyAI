@@ -13,14 +13,14 @@
 using namespace std;
 
 class Deck {
+
+public:
     int total_cards = 52;
     int curr_size = total_cards;
 
     string suits[4] = {"Spades", "Hearts", "Clubs", "Diamonds"};
     vector<Card> deck;
 
-
-public:
     vector<Card> discard_pile;
     Deck();
     void shuffle();

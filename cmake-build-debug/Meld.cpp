@@ -35,6 +35,7 @@ int Meld::calculate_score(vector<Card> meld){
 bool operator== (const Meld &m1, const Meld &m2){
     return m1.meld == m2.meld;
 }
+
 bool operator< (const Meld &m1, const Meld &m2){
     return m1.meld < m2.meld;
 }

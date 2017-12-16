@@ -102,11 +102,11 @@ void Player::put_card(Card card, Meld meld, int index) {
     remove_card(card);
 }
 
-int Player::get_score() {
+int Player::get_score() const {
     return score;
 }
 
-void Player::print_hand() {
+void Player::print_hand() const{
     //cout<<"Hand size is "<<hand.size()<<endl;
     cout<<name<<"'s hand is:"<<endl;
     for (int i = 0; i < hand.size(); i++){
