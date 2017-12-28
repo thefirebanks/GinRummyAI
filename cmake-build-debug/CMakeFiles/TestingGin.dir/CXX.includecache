@@ -6,23 +6,23 @@
 
 #IncludeRegexTransform: 
 
-/Users/jacobarons/CLionProjects/TestingGummy/cmake-build-debug/Card.cpp
+/Users/dafirebanks/CLionProjects/TestingGin/cmake-build-debug/Card.cpp
 iostream
 -
 Card.h
-/Users/jacobarons/CLionProjects/TestingGummy/cmake-build-debug/Card.h
+/Users/dafirebanks/CLionProjects/TestingGin/cmake-build-debug/Card.h
 
-/Users/jacobarons/CLionProjects/TestingGummy/cmake-build-debug/Card.h
+/Users/dafirebanks/CLionProjects/TestingGin/cmake-build-debug/Card.h
 stdlib.h
 -
 string
 -
 
-/Users/jacobarons/CLionProjects/TestingGummy/cmake-build-debug/Deck.cpp
+/Users/dafirebanks/CLionProjects/TestingGin/cmake-build-debug/Deck.cpp
 Deck.h
-/Users/jacobarons/CLionProjects/TestingGummy/cmake-build-debug/Deck.h
+/Users/dafirebanks/CLionProjects/TestingGin/cmake-build-debug/Deck.h
 
-/Users/jacobarons/CLionProjects/TestingGummy/cmake-build-debug/Deck.h
+/Users/dafirebanks/CLionProjects/TestingGin/cmake-build-debug/Deck.h
 stdlib.h
 -
 iostream
@@ -32,33 +32,13 @@ string
 vector
 -
 Card.h
-/Users/jacobarons/CLionProjects/TestingGummy/cmake-build-debug/Card.h
+/Users/dafirebanks/CLionProjects/TestingGin/cmake-build-debug/Card.h
 
-/Users/jacobarons/CLionProjects/TestingGummy/cmake-build-debug/GinState.cpp
-GinState.h
-/Users/jacobarons/CLionProjects/TestingGummy/cmake-build-debug/GinState.h
-iostream
--
-mcts.h
-/Users/jacobarons/CLionProjects/TestingGummy/cmake-build-debug/mcts.h
-
-/Users/jacobarons/CLionProjects/TestingGummy/cmake-build-debug/GinState.h
-algorithm
--
-iostream
--
-Table.h
-/Users/jacobarons/CLionProjects/TestingGummy/cmake-build-debug/Table.h
-Move.h
-/Users/jacobarons/CLionProjects/TestingGummy/cmake-build-debug/Move.h
-mcts.h
-/Users/jacobarons/CLionProjects/TestingGummy/cmake-build-debug/mcts.h
-
-/Users/jacobarons/CLionProjects/TestingGummy/cmake-build-debug/Meld.cpp
+/Users/dafirebanks/CLionProjects/TestingGin/cmake-build-debug/Meld.cpp
 Meld.h
-/Users/jacobarons/CLionProjects/TestingGummy/cmake-build-debug/Meld.h
+/Users/dafirebanks/CLionProjects/TestingGin/cmake-build-debug/Meld.h
 
-/Users/jacobarons/CLionProjects/TestingGummy/cmake-build-debug/Meld.h
+/Users/dafirebanks/CLionProjects/TestingGin/cmake-build-debug/Meld.h
 stdlib.h
 -
 iostream
@@ -66,41 +46,31 @@ iostream
 vector
 -
 Card.h
-/Users/jacobarons/CLionProjects/TestingGummy/cmake-build-debug/Card.h
+/Users/dafirebanks/CLionProjects/TestingGin/cmake-build-debug/Card.h
 
-/Users/jacobarons/CLionProjects/TestingGummy/cmake-build-debug/Move.cpp
-Move.h
-/Users/jacobarons/CLionProjects/TestingGummy/cmake-build-debug/Move.h
-
-/Users/jacobarons/CLionProjects/TestingGummy/cmake-build-debug/Move.h
-Table.h
-/Users/jacobarons/CLionProjects/TestingGummy/cmake-build-debug/Table.h
+/Users/dafirebanks/CLionProjects/TestingGin/cmake-build-debug/Player.cpp
 Player.h
-/Users/jacobarons/CLionProjects/TestingGummy/cmake-build-debug/Player.h
-Meld.h
-/Users/jacobarons/CLionProjects/TestingGummy/cmake-build-debug/Meld.h
+/Users/dafirebanks/CLionProjects/TestingGin/cmake-build-debug/Player.h
 
-/Users/jacobarons/CLionProjects/TestingGummy/cmake-build-debug/Player.cpp
-Player.h
-/Users/jacobarons/CLionProjects/TestingGummy/cmake-build-debug/Player.h
-
-/Users/jacobarons/CLionProjects/TestingGummy/cmake-build-debug/Player.h
+/Users/dafirebanks/CLionProjects/TestingGin/cmake-build-debug/Player.h
 vector
 -
 iostream
 -
+set
+-
 Deck.h
-/Users/jacobarons/CLionProjects/TestingGummy/cmake-build-debug/Deck.h
+/Users/dafirebanks/CLionProjects/TestingGin/cmake-build-debug/Deck.h
 Card.h
-/Users/jacobarons/CLionProjects/TestingGummy/cmake-build-debug/Card.h
+/Users/dafirebanks/CLionProjects/TestingGin/cmake-build-debug/Card.h
 Meld.h
-/Users/jacobarons/CLionProjects/TestingGummy/cmake-build-debug/Meld.h
+/Users/dafirebanks/CLionProjects/TestingGin/cmake-build-debug/Meld.h
 
-/Users/jacobarons/CLionProjects/TestingGummy/cmake-build-debug/Table.cpp
+/Users/dafirebanks/CLionProjects/TestingGin/cmake-build-debug/Table.cpp
 Table.h
-/Users/jacobarons/CLionProjects/TestingGummy/cmake-build-debug/Table.h
+/Users/dafirebanks/CLionProjects/TestingGin/cmake-build-debug/Table.h
 
-/Users/jacobarons/CLionProjects/TestingGummy/cmake-build-debug/Table.h
+/Users/dafirebanks/CLionProjects/TestingGin/cmake-build-debug/Table.h
 vector
 -
 iostream
@@ -110,65 +80,31 @@ set
 stdlib.h
 -
 Deck.h
-/Users/jacobarons/CLionProjects/TestingGummy/cmake-build-debug/Deck.h
+/Users/dafirebanks/CLionProjects/TestingGin/cmake-build-debug/Deck.h
 Card.h
-/Users/jacobarons/CLionProjects/TestingGummy/cmake-build-debug/Card.h
+/Users/dafirebanks/CLionProjects/TestingGin/cmake-build-debug/Card.h
 Player.h
-/Users/jacobarons/CLionProjects/TestingGummy/cmake-build-debug/Player.h
+/Users/dafirebanks/CLionProjects/TestingGin/cmake-build-debug/Player.h
 Meld.h
-/Users/jacobarons/CLionProjects/TestingGummy/cmake-build-debug/Meld.h
+/Users/dafirebanks/CLionProjects/TestingGin/cmake-build-debug/Meld.h
 
-/Users/jacobarons/CLionProjects/TestingGummy/cmake-build-debug/Testing .cpp
+/Users/dafirebanks/CLionProjects/TestingGin/cmake-build-debug/Testing .cpp
 iostream
 -
 Card.cpp
-/Users/jacobarons/CLionProjects/TestingGummy/cmake-build-debug/Card.cpp
+/Users/dafirebanks/CLionProjects/TestingGin/cmake-build-debug/Card.cpp
 Deck.cpp
-/Users/jacobarons/CLionProjects/TestingGummy/cmake-build-debug/Deck.cpp
+/Users/dafirebanks/CLionProjects/TestingGin/cmake-build-debug/Deck.cpp
 Meld.cpp
-/Users/jacobarons/CLionProjects/TestingGummy/cmake-build-debug/Meld.cpp
+/Users/dafirebanks/CLionProjects/TestingGin/cmake-build-debug/Meld.cpp
 Player.cpp
-/Users/jacobarons/CLionProjects/TestingGummy/cmake-build-debug/Player.cpp
+/Users/dafirebanks/CLionProjects/TestingGin/cmake-build-debug/Player.cpp
 Table.cpp
-/Users/jacobarons/CLionProjects/TestingGummy/cmake-build-debug/Table.cpp
-Move.cpp
-/Users/jacobarons/CLionProjects/TestingGummy/cmake-build-debug/Move.cpp
+/Users/dafirebanks/CLionProjects/TestingGin/cmake-build-debug/Table.cpp
 
-/Users/jacobarons/CLionProjects/TestingGummy/cmake-build-debug/main.cpp
+/Users/dafirebanks/CLionProjects/TestingGin/cmake-build-debug/main.cpp
 iostream
 -
 Testing .cpp
-/Users/jacobarons/CLionProjects/TestingGummy/cmake-build-debug/Testing .cpp
-GinState.cpp
-/Users/jacobarons/CLionProjects/TestingGummy/cmake-build-debug/GinState.cpp
-
-/Users/jacobarons/CLionProjects/TestingGummy/cmake-build-debug/mcts.h
-algorithm
--
-cstdlib
--
-future
--
-iomanip
--
-iostream
--
-map
--
-memory
--
-random
--
-set
--
-sstream
--
-string
--
-thread
--
-vector
--
-omp.h
--
+/Users/dafirebanks/CLionProjects/TestingGin/cmake-build-debug/Testing .cpp
 

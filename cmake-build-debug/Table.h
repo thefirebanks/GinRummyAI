@@ -17,23 +17,23 @@
 
 class Table {
 public:
-    //Tested!!!!!
     Deck* current_deck;
     set<Player*> players;
-    set<Meld> melds;
-    Table(Player* p1, Player* p2, Deck* deck);
+    set<Meld*> melds;
+    Table(Player *p1, Player *p2, Deck *deck);
     void updateMeld();
     void play_meld(Player* p);
 
+    //TODO Later, add a checking statement for add on melds
     void evaluate_draw(Player* p) const;
     void evaluate_hand(Player* p) const;
-    bool evaluate_melds(Player* p) const;
+    bool evaluate_melds(Player* p, Card* eval_card) const;
     void evaluate_discard(Player* p) const;
 
+    void print_players();
 
-
-    static bool compare_value(Card c1, Card c2);
-    static bool compare_suit(Card c1, Card c2);
+    static bool compare_value(Card *c1, Card *c2);
+    static bool compare_suit(Card *c1, Card *c2);
 };
 
 

@@ -5,249 +5,217 @@
 #include "Table.h"
 
 /* Initialize a new table with 2 player and a new deck */
-Table::Table(Player* p1, Player* p2, Deck* deck) {
+Table::Table(Player *p1, Player *p2, Deck *deck) {
     players.insert(p1);
     players.insert(p2);
     current_deck = deck;
-
 }
 
 
 /* Given the current state, get the melds of all the players
  * and add them to the set of melds of the table */
 void Table::updateMeld() {
-    melds.clear();
+
+    //Clear current set of melds
+    //melds.clear();
 
     //Iterate through the players
 
-    Player *p = *std::next(players.begin(), 0);
+    Player *p = *next(players.begin(), 0);
 
-    for (Meld meld : p->meld_list){
+    for (Meld *meld : p->meld_list){
         melds.insert(meld);
     }
 
-    Player *p1 = *std::next(players.begin(), 1);
+    Player *p1 = *next(players.begin(), 1);
 
-    for (Meld meld : p1->meld_list){
+    for (Meld *meld : p1->meld_list){
         melds.insert(meld);
     }
-
-
 
 }
 
-
+/* Updates the player's draw_from variable,
+ * taking in account the top card of the discard pile,
+ * and evaluates the hand for possible_melds and possible_new_melds */
 void Table::evaluate_draw(Player* p) const{
 
-    //Update player's draw_from
-    if (evaluate_melds(p) == true){
-        p->draw_from = "Discard";
+    p->draw_from = "Deck";
+
+    //Check for possible_melds and possible_new_melds within the hand------------
+    if (p->possible_melds.empty()){
+        //cout << "Possible melds is empty in evaluate_draw" << endl;
+        evaluate_hand(p);
     }
-    else{
-        p->draw_from = "Deck";
+
+    //Check for possible melds in the discard pile ------------------------------
+    if (!(p->possible_melds.empty() || current_deck->discard_pile.empty())){
+
+        //Reference the top card of the discard_pile
+        vector<Card*> discard = current_deck->discard_pile;
+        Card *eval_card = discard.back();
+
+        //Update player's draw_from
+        if (evaluate_melds(p, eval_card))
+            p->draw_from = "Discard";
     }
 
 }
 
-// FIX SORTING COMPARATOR OMG WHY IS THAT ACE OF SPADES AT THE END WHAT THE FUCK
 
-/* Updates possible new melds for player AFTER drawing */
+/* Checks and updates possible_melds for player's current hand when possible_melds is empty
+ * Calls evaluate_melds and updates possible_new_melds if possible_melds is not empty */
 void Table::evaluate_hand(Player* p) const {
     //p->possible_new_melds[0]->print_meld();
 
-    /* CHECK HAND AGAINST MELD_LIST */
+    //cout << "Size of hand before checking by value is " << p->hand.size() << endl;
+    //Check for melds in the format 6D, 6S, 6H
+    sort(p->hand.begin(), p->hand.end(), compare_value);
 
-    //If there are no current possible melds
-    if (p->possible_melds.empty()){
-        //cout<<"BRO THIS IS EMPTY"<<endl;
-        sort(p->hand.begin(), p->hand.end(), compare_value);
+    //For every two cards in the hand, check if they are of the same value
+    for (int i = 0; i < p->hand.size() - 1; i++){
+        Card *c1 = p->hand.at(i);
+        Card *c2 = p->hand.at(i+1);
+        if (c1->get_value() == c2->get_value()){
+            p->possible_melds.push_back(c1);
+            p->possible_melds.push_back(c2);
+        }
+    }
 
-        //Check for melds in the format 6D, 6S, 6H
-        for (int i = 0; i < p->hand.size(); i++){
-            Card c1 = p->hand[i];
-            Card c2 = p->hand[i+1];
-            if (c1.get_value() == c2.get_value()){
+    //cout << "-- Checked for melds by value --" << endl;
+
+    //cout << "Size of hand before checking by suit is " << p->hand.size() << endl;
+
+    //Check for melds in the format 6S,7S,8S
+    sort(p->hand.begin(), p->hand.end(), compare_suit);
+
+
+    //For every two cards in the hand, if they are the same suit, check if their values coincide with the format 6S,7S,8S
+    for (int i = 0; i < p->hand.size() - 1; i++){
+        Card *c1 = p->hand.at(i);
+        Card *c2 = p->hand.at(i+1);
+
+        if (c1->get_suit() == c2->get_suit()){
+            if ((c1->get_value() + 1 == c2->get_value()) || (c1->get_value() + 2 == c2->get_value())){
                 p->possible_melds.push_back(c1);
                 p->possible_melds.push_back(c2);
             }
         }
+    }
 
+    //cout << "-- Checked for melds by suit --" << endl;
 
-        //Check for melds in the format 6S,7S,8S ---------- WHAT IS THIS?
-        sort(p->hand.begin(), p->hand.end(), compare_suit);
+    //cout << "Size of hand before checking possible new melds is " << p->hand.size() << endl;
 
-        //Check for melds in the format 6D, 6S, 6H
+    //Evaluate if there are any possible new melds within the current hand and update variable
+    if (!p->possible_melds.empty()){
+
+        //cout << "There are possible melds, checking if they can be completed in the hand now" << endl;
         for (int i = 0; i < p->hand.size(); i++){
-            Card c1 = p->hand[i];
-            Card c2 = p->hand[i+1];
-
-            if (c1.get_suit() == c2.get_suit()){
-                if ((c1.get_value() + 1 == c2.get_value()) || (c1.get_value() + 2 == c2.get_value())){
-                    p->possible_melds.push_back(c1);
-                    p->possible_melds.push_back(c2);
-//MARK DRAW FROM AS DISCARD?
-                }
-            }
+            bool not_relevant = evaluate_melds(p, p->hand.at(i));
         }
 
+        //cout << "-- Checked possible new melds within the hand --" << endl;
     }
-
-    if (p->possible_melds.size() == 0)
-        return;
-
-    vector<Card> copy = p->possible_melds;
-
-    for (int i = 0; i <= copy.size() - 2; i += 2){
-        Card first = copy[i];
-        Card second = copy[i+1];
-
-        //For every card in hand, check if that card can complete any of the melds
-        for (int j = 0; j < p->hand.size(); j++){
-            // Case where we have 6D, 7D, and we are missing an 8D or a 5D
-            if ((p->hand[j].get_suit() == first.get_suit() && (p->hand[j].get_value() + 1 == first.get_value()) && (p->hand[j].get_value() == second.get_value() - 2)) || (p->hand[j].get_suit() == second.get_suit() && (p->hand[j].get_value() - 1 == second.get_value())  && (p->hand[j].get_value() == first.get_value() + 2))){
-
-                    //have 6D, 8D, need 7D
-                if  (p->hand[j].get_value() == first.get_value()+1 && p->hand[j].get_value() == second.get_value()-1){
-                }
-
-
-                Meld* n1_meld = new Meld(first, second, p->hand[j]);
-                //Meld* extra = &n1_meld;
-                copy.erase(copy.begin() + i);
-                copy.erase(copy.begin() + i);
-
-
-                p->possible_new_melds.push_back(n1_meld);
-                //p->possible_new_melds[0]->print_meld();
-                //cout<<"PRINT BRO1"<<endl;
-
-                delete(n1_meld);
-            }
-
-            // Case where we have 6D, 6H, and we see 6S or 6C
-            else if ((first.get_value() == second.get_value()) && (p->hand[j].get_value() == second.get_value())){
-                if(p->hand[j].get_suit() != first.get_suit() && p->hand[j].get_suit() != second.get_suit()){
-
-
-                    Meld* n2_meld = new Meld(first, second, p->hand[j]);
-
-                    copy.erase(p->possible_melds.begin() + i);
-                    copy.erase(p->possible_melds.begin() + i);
-                    //cout<<"PRINT BRO2"<<endl;
-                    p->possible_new_melds.push_back(n2_meld);
-
-                    delete(n2_meld);
-                }
-            }
-        }
-
-    }
-
 }
 
-/* Updates possible new melds for player BEFORE drawing
+/* Updates possible_new_melds given player's current hand and possible_melds
  * returns true if it is better to draw from discard pile */
-bool Table::evaluate_melds(Player* p) const{
+bool Table::evaluate_melds(Player* p, Card* eval_card) const{
 
-    //Base case for when possible melds is empty
-    if (p->possible_melds.size()==0){
-        evaluate_hand(p); // Is this the only place it gets called?
-        if (p->possible_melds.empty()){
-            return false;
-        }
-    }
-    //cout<<"GOT HERE BRO"<<endl;
-
-
-    //Else, check with discard pile
-    if (current_deck->discard_pile.size() == 0)
-        return false;
-
-    vector<Card> discard = current_deck->discard_pile;
-
-    Card top_discard = discard.back();
-    //cout<<"Discarded card is:"<<endl;
-    //top_discard.print_card();
-    //cout<<"GOT HERE BRO"<<endl;
-
-    //cout<<"TOP DISCARD IS "<<endl;
-    //top_discard.print_card();
     bool added = false;
 
-    vector<Card> copy = p->possible_melds;
-    //cout<<"BRO"<<copy.size()<<endl;
+    vector<Card*> copy = p->possible_melds;
 
     for (int i = 0; i <= copy.size() - 2; i += 2){
         //cout<<"GOT HERE BRO"<<endl;
 
-        Card first = copy.at(i);
-        Card second = copy.at(i+1);
+        Card *first = copy.at(i);
+        Card *second = copy.at(i+1);
 
-        // Case where we have 6D, 7D, and we are missing an 8D or a 5D
-        if ((top_discard.get_suit() == first.get_suit() && (top_discard.get_value() + 1 == first.get_value()) && (top_discard.get_value() == second.get_value() - 2)) || (top_discard.get_suit() == second.get_suit() && (top_discard.get_value() - 1 == second.get_value())  && (top_discard.get_value() == first.get_value() + 2))){
-            //Create the meld
+        //---------------Melds by suit---------------------------------------
+        // Case where we have 6D, 7D, and we are missing a 8D
+        bool case1 = (eval_card->get_suit() == first->get_suit()
+                      && (eval_card->get_value() + 1 == first->get_value())
+                      && (eval_card->get_value() == second->get_value() - 2));
 
-            //if you have 6D 8D need 7D
-            if  (p->hand[i].get_value() == first.get_value()+1 && p->hand[i].get_value() == second.get_value()-1){
-                //cout<<"PRINT BRO"<<endl;
-            }
+        // Case where we have 6D, 7D, and we are missing a 5D
+        bool case2 = (eval_card->get_suit() == second->get_suit()
+                      && (eval_card->get_value() - 1 == second->get_value())
+                      && (eval_card->get_value() == first->get_value() + 2));
 
+        // Case where we have 5D, 7D, and we are missing a 6D
+        bool case3 = (eval_card->get_suit() == first->get_suit()
+                      && (eval_card->get_value() == first->get_value() + 1)
+                      && (eval_card->get_value() == second->get_value() - 1));
 
-            Meld new_meld(first, second, top_discard);
-
-            //Delete it from possible melds
-            copy.erase(copy.begin() + i);
-            copy.erase(copy.begin() + i);
-
-            //Add it to possible NEW melds
-            //cout<<"PRINT BRO3"<<endl;
-            p->possible_new_melds.push_back(&new_meld);
-            added = true;
-        }
-
+        //---------------Meld by value---------------------------------------
         // Case where we have 6D, 6H, and we see 6S or 6C
-        else if ((first.get_value() == second.get_value()) && (top_discard.get_value() == second.get_value())){
-            //Create the meld
-            Meld new_meld(first, second, top_discard);
+        bool case4 = ((first->get_value() == second->get_value())
+                     && (eval_card->get_value() == second->get_value())
+                      && ((eval_card->get_suit() != first->get_suit())
+                          && eval_card->get_suit() != second->get_suit()));
 
+        //cout << "-- Checked for all the cases if there is a possible meld --" << endl;
+
+        // If any of the cases is true
+        if (case1 || case2 || case3 || case4) {
+
+            //Create the meld
+            Meld *new_meld = new Meld(first, second, eval_card);
+
+            //cout << "-- Created a new meld --" << endl;
             //Delete it from possible melds
-            copy.erase(p->possible_melds.begin() + i);
-            copy.erase(p->possible_melds.begin() + i);
+            copy.erase(copy.begin() + i);
+            copy.erase(copy.begin() + i);
+
+            //cout << "-- Deleted the cards from the possible_melds --" << endl;
 
             //Add it to possible NEW melds
-            //cout<<"PRINT BRO4"<<endl;
-            p->possible_new_melds.push_back(&new_meld);
+            p->possible_new_melds.insert(new_meld);
+
+            //cout << "-- Added meld to possible_new_meld --" << endl;
+
             added = true;
         }
     }
 
+    //cout << "Finished loop of evaluate melds" << endl;
     return added;
 }
-
+/*
 void Table::evaluate_discard(Player* p) const{
     //clear useless cards
     p->useless_cards.clear();
 
     //fill useless_cards in order
     sort(p->hand.begin(), p->hand.end(), compare_value);
+
+    //cout<<"Size of hand is "<<p->hand.size()<<endl;
+
     for (int j = 0; j < p->hand.size(); j++) {
         bool contains = false;
         Card c = p->hand[j];
         //Card hold = Card(c.get_value(), c.get_suit(), c.get_score());
         //cout<<p->possible_new_melds.size()<<endl;
         //p->possible_new_melds[0]->print_meld();
-        if (p->possible_new_melds.size() == 0) {
+
+        //If there are not cards that could be made melds
+        if (p->possible_new_melds.size() == 0)
+        {
             for (int i = 0; i < p->hand.size(); i++) {
                 p->discard_index.push_back(i);
             }
             //cout<<"TEST BRO"<<endl;
         }
-        else{
+
+        else
+        {
             for (int i = 0; i < p->possible_new_melds.size(); i++) {
                 //p->possible_new_melds[i]->print_meld();
                 //cout << "Size of card is" << endl;
 
-                //cout<<"Size of meld is "<<p->possible_new_melds[i]->print_meld()<<endl;
+                //cout<<"Size of meld is "<<p->possible_new_melds.size()<<endl;
 
                 //p->possible_new_melds[i]->print_meld();
                 for (Card k : p->possible_new_melds[i]->get_meld()) {
@@ -268,25 +236,34 @@ void Table::evaluate_discard(Player* p) const{
                 //cout<<"Size of vector is "<<p->useless_cards.size()<<endl;
                 p->useless_cards.push_back(c);
 
+                p->useless_cards.pop_back();
                 //Add index to reference later and discard
                 p->discard_index.push_back(j);
             }
         }
     }
 }
+*/
+void Table::print_players() {
+    Player *p1 = *std::next(players.begin(), 0);
+    cout<<"Player 1 is "<<p1->name<<endl;
 
+    Player *p2 = *std::next(players.begin(), 1);
+    cout<<"Player 2 is "<<p2->name<<endl;
+}
 
-bool Table::compare_suit(Card c1, Card c2) {
-    if (c1.get_suit() == c2.get_suit())
-        return c1.get_value() < c2.get_value();
+bool Table::compare_suit(Card *c1, Card *c2) {
+    if (c1->get_suit() == c2->get_suit())
+        return c1->get_value() < c2->get_value();
     else
-        return c1.get_suit() < c2.get_suit();
+        return c1->get_suit() < c2->get_suit();
 }
 
-bool Table::compare_value(Card c1, Card c2) {
-    return c1.get_value() < c2.get_value();
+bool Table::compare_value(Card *c1, Card *c2) {
+    return c1->get_value() < c2->get_value();
 }
 
+/*
 void Table::play_meld(Player *p) {
     if (p->possible_new_melds.size() != 0){ // If melds to play is not size zero
         for (Meld* m : p->possible_new_melds){ //play melds to table
@@ -306,3 +283,4 @@ void Table::play_meld(Player *p) {
     }
 }
 
+*/

@@ -5,17 +5,12 @@ CMakeFiles/TestingGin.dir/main.cpp.o: Card.cpp
 CMakeFiles/TestingGin.dir/main.cpp.o: Card.h
 CMakeFiles/TestingGin.dir/main.cpp.o: Deck.cpp
 CMakeFiles/TestingGin.dir/main.cpp.o: Deck.h
-CMakeFiles/TestingGin.dir/main.cpp.o: GinState.cpp
-CMakeFiles/TestingGin.dir/main.cpp.o: GinState.h
 CMakeFiles/TestingGin.dir/main.cpp.o: Meld.cpp
 CMakeFiles/TestingGin.dir/main.cpp.o: Meld.h
-CMakeFiles/TestingGin.dir/main.cpp.o: Move.cpp
-CMakeFiles/TestingGin.dir/main.cpp.o: Move.h
 CMakeFiles/TestingGin.dir/main.cpp.o: Player.cpp
 CMakeFiles/TestingGin.dir/main.cpp.o: Player.h
 CMakeFiles/TestingGin.dir/main.cpp.o: Table.cpp
 CMakeFiles/TestingGin.dir/main.cpp.o: Table.h
 CMakeFiles/TestingGin.dir/main.cpp.o: Testing\ .cpp
 CMakeFiles/TestingGin.dir/main.cpp.o: main.cpp
-CMakeFiles/TestingGin.dir/main.cpp.o: mcts.h
 

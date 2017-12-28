@@ -1,12 +1,15 @@
 
 #include <iostream>
 #include "Testing .cpp"
-#include "GinState.cpp"
+//#include "GinState.cpp"
 
 using namespace std;
 
 int main()
 {
+
+    test_Table();
+    /*
     try {
         main_program();
     }
@@ -14,4 +17,5 @@ int main()
         std::cerr << "ERROR: " << error.what() << std::endl;
         return 1;
     }
+    */
 }

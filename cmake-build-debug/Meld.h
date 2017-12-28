@@ -9,23 +9,46 @@
 #ifndef GINRUMMY_MELD_H
 #define GINRUMMY_MELD_H
 
+
+//TODO Make a method for checking if the human player tries to make an invalid meld.. here?
+
 class Meld {
 
-
 public:
-    vector<Card> meld;
+    vector<Card*> meld;
     int score;
+
     //Constructor for sets and runs
-    Meld(Card c1, Card c2, Card c3);
+    Meld(Card *c1, Card *c2, Card *c3);
 
     //Constructor for add-ons
-    Meld(Card c1);
+    Meld(Card *c1);
 
-    int calculate_score(vector<Card> meld);
-    void add_card(Card card);
-    int get_score();
-    vector<Card> get_meld();
+    struct meld_compare{
+        bool operator() (const Meld* m1, const Meld* m2) const{
+
+            int count = 0;
+
+            for (int i = 0; i < m1->meld.size(); i++){
+                for (int j = 0; j < m2->meld.size(); j++){
+                    if ((m1->meld.at(i)->get_suit() == m2->meld.at(j)->get_suit())
+                        && (m1->meld.at(i)->get_value() == m2->meld.at(j)->get_value())){
+                        count += 1;
+                    }
+                }
+                if (count == 0)
+                    return true;
+            }
+            return count != 3;
+        }
+    };
+
+    int calculate_score();
+    void add_card(Card *card);
+    vector<Card*> get_meld();
     void print_meld();
+
+
 };
 
 

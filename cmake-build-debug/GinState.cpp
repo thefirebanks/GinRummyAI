@@ -27,7 +27,8 @@ void main_program()
     while (state.has_moves()) {
         cout << endl << "State: " << state << endl;
 
-        GinState::Move move = GinState::no_move;
+        GinState::Move move;// = GinState::no_move;
+
         if (state.player_to_move == 1) {
             //draw move
             move = MCTS::compute_move(state, player1_options);
@@ -36,7 +37,6 @@ void main_program()
             //play move
             //discard move
         }
-            //6 Diamonds
         else {
             if (human_player) {
                 cout<<"Human not found"<<endl;

@@ -8,9 +8,9 @@
 #include "Meld.cpp"
 #include "Player.cpp"
 #include "Table.cpp"
-#include "Move.cpp"
+//#include "Move.cpp"
 
-
+/*
 void test_Deck(){
     //Test ordered deck
     Deck deck = Deck();
@@ -100,104 +100,106 @@ void test_Discard(){
     cout<<"Card drawn from discard pile is:"<<endl;
     discard.print_card();
 }
+*/
 
+/*
 void test_Player(){
+
+    //Creating and dealing ------------------------------------
+
+    //Creating deck
     Deck deck = Deck();
 
-    /* Creating and dealing ------------------------------------*/
-
     //Initialize players
-    Player p1 = Player("Cowboy");
-    Player p2 = Player("Scout");
+    Player* p1 = new Player("Cowboy");
+    Player* p2 = new Player("Scout");
 
-    cout<<"Players are "<<p1.name<<" and "<<p2.name<<endl;
+    cout<<"Players are "<<p1->name<<" and "<<p2->name<<endl;
 
-    p1.deal(&p2, &deck);
+    p1->deal(p2, &deck);
 
     //Check if they were dealt
-    //p1.print_hand();
-    //p2.print_hand();
+    p1->print_hand();
+    p2->print_hand();
 
     //Check if a card has been drawn
-    p1.draw("Deck", &deck);
-    //p1.print_hand();
+    p1->draw("Deck", &deck);
+    cout << "P1 drew a card!" << endl;
+    p1->print_hand();
 
-    /* Discarding ------------------------------------*/
+    //Discarding ------------------------------------
 
     //Check if discard works
-    p1.discard(p1.hand.back(), &deck);
-    //p1.print_hand();
+    p1->discard(p1->hand.back(), &deck);
+    cout << "P1 discarded a card!" << endl;
+    p1->print_hand();
 
     //Check if the discarded card was added to the discarded pile
-    p2.draw("Disc", &deck);
-    //p2.print_hand();
+    p2->draw("Disc", &deck);
+    cout << "P2 drew a card!" << endl;
+    p2->print_hand();
 
-    /* Melding ------------------------------------*/ // MUST CORRECT POINTERS TO MELD SO WE DONT INITIALIZE THEM CONSTANTLY
+    //Melding ------------------------------------ MUST CORRECT POINTERS TO MELD SO WE DONT INITIALIZE THEM CONSTANTLY
 
     //Print hand before putting melds
     cout<<"Hand of player 1 before meld is:"<<endl;
-    p1.print_hand();
+    p1->print_hand();
 
     //Check if player can make new melds
-    Card c1 = p1.hand.at(0);
-    Card c2 = p1.hand.at(1);
-    Card c3 = p1.hand.at(2);
-    p1.new_meld(c1, c2, c3);
+    Card *c1 = p1->hand.at(0);
+    Card *c2 = p1->hand.at(1);
+    Card *c3 = p1->hand.at(2);
+    p1->new_meld(c1, c2, c3);
 
     cout<<"Melds of player 1 are:"<<endl;
-    for (Meld m1 : p1.meld_list){
-        m1.print_meld();
+    for (Meld* m1 : p1->meld_list){
+        m1->print_meld();
     }
 
     //Print hand after putting melds
     cout<<"Hand of player 1 after meld is:"<<endl;
-    p1.print_hand();
+    p1->print_hand();
 
     //Print hand before putting melds
     cout<<"Hand of player 2 before meld is:"<<endl;
-    p2.print_hand();
-
-    // MUST CORRECT POINTERS TO MELD SO WE DONT INITIALIZE THEM CONSTANTLY
+    p2->print_hand();
 
     //Check if player can make an addon meld
-    p2.addon_meld(p2.hand.front());
-    p2.addon_meld(p2.hand.front());
-    p2.addon_meld(p2.hand.front());
+    p2->addon_meld(p2->hand.front());
+    p2->addon_meld(p2->hand.front());
+    p2->addon_meld(p2->hand.front());
 
     cout<<"Melds of player 2 are:"<<endl;
-    for (Meld m2 : p2.meld_list){
-        m2.print_meld();
+    for (Meld *m2 : p2->meld_list){
+        m2->print_meld();
     }
 
     //Print hand after putting melds
     cout<<"Hand of player 2 after meld is:"<<endl;
-    p2.print_hand();
+    p2->print_hand();
 
     //Add a card to an existing meld
-    p1.put_card(p1.hand.at(0), p1.meld_list.at(0), 0);
-    p2.put_card(p2.hand[0], p2.meld_list[1], 1);
+    p1->put_card(p1->hand.at(0), p1->meld_list.at(0), 0);
+    cout << "Adding a card to a meld from P1" << endl;
 
-    /*
-    p1_melds = p1.meld_list;
-    p2_melds = p2.meld_list;
-    */
+    p2->put_card(p2->hand.at(0), p2->meld_list[1], 1);
+    cout << "Adding a card to a meld from P2" << endl;
 
     cout<<"Melds of player 1 are:"<<endl;
-    for (Meld m1 : p1.meld_list){
-        m1.print_meld();
+    for (Meld *m1 : p1->meld_list){
+        m1->print_meld();
     }
 
     cout<<"Melds of player 2 are:"<<endl;
-    for (Meld m2 : p2.meld_list){
-        m2.print_meld();
+    for (Meld *m2 : p2->meld_list){
+        m2->print_meld();
     }
 
-    /* ------------------------------------*/
-
-
 }
+*/
 
 void test_Table(){
+
     //Initialize shit
     Player Cowboy = Player("Cowboy");
     Player Scout = Player("Scout");
@@ -205,35 +207,45 @@ void test_Table(){
 
     deck.shuffle();
     deck.shuffle();
+
     Table table = Table(&Cowboy, &Scout, &deck);
 
-    for (Player* p : table.players){
+    for (Player *p : table.players){
         cout<<p->name<<endl;
     }
 
     //Deal
     Cowboy.deal(&Scout, &deck);
-    //Scout.hand.front().print_card();
 
-    Scout.discard(*Scout.hand.begin(), &deck);
+    //Scout.hand.front().print_card();
+    Scout.discard(Scout.hand.front(), &deck);
+
+    cout<<"Discarded card is ";
+    table.current_deck->discard_pile.at(0)->print_card();
+
     Cowboy.print_hand();
 
     table.evaluate_draw(&Cowboy);
     //Cowboy.print_hand();
-    /*
-    cout<<"Possible melds are:"<<endl;
+
+    cout << "After evaluating draw, place is " << Cowboy.draw_from << endl;
+    cout << "Possible melds are:" << endl;
 
     for (int i = 0; i < Cowboy.possible_melds.size(); i++){
-        Cowboy.possible_melds[i].print_card();
+        Cowboy.possible_melds.at(i)->print_card();
     }
-    */
+
+    cout << "Possible NEW melds are:" << endl;
+
+    for (Meld* m : Cowboy.possible_new_melds){
+        m->print_meld();
+    }
+
     Cowboy.draw(Cowboy.draw_from, &deck);
-    //cout<<"Discard is: "<<deck.discard_pile.begin()<<endl;
-    cout<<"Drew from: "<<Cowboy.draw_from<<endl;
+
     Cowboy.print_hand();
 
-
-
+    /*
     //table.evaluate_hand(&Cowboy); // add if doesn't contain
     cout<<"Possible NEW melds are:"<<endl;
     for (int i = 0; i < Cowboy.possible_new_melds.size(); i++){
@@ -248,6 +260,7 @@ void test_Table(){
     for (Meld m : table.melds){
         m.print_meld();
     }
+
 
     table.evaluate_discard(&Cowboy);
     Cowboy.print_hand();
@@ -267,13 +280,16 @@ void test_Table(){
     for (int i = 0; i < Cowboy.meld_list.size(); i++){
         Cowboy.meld_list[i].print_meld();
     }
-
+    */
 }
 
-void test_Move(){
+
+
+//void test_Move(){
 
     /* Form possible moves ---------------------------------------- */
 
+    /*
     Deck deck = Deck();
 
     Player p1 = Player("Cowboy");
@@ -322,7 +338,7 @@ void test_Move(){
     else if (player_markers[player_to_move] == 2){
         p = &p2;
     }
-    */
+
 
     Player *p;
     p = &p1;
@@ -459,3 +475,4 @@ void test_Move(){
 }
 
 
+*/

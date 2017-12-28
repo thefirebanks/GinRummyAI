@@ -3,7 +3,7 @@
 //
 #include "Deck.h"
 
-/*Constructor for deck, adds 52 cards and shuffles the deck*/
+/* Constructor for deck, adds 52 cards and shuffles the deck */
 Deck::Deck(){
 
     //To reference suits
@@ -16,7 +16,7 @@ Deck::Deck(){
     for (int i = 1; i <= total_cards; i++){
 
         //Create a new card
-        Card card(card_num, suits[index_s], score);
+        Card *card = new Card(card_num, suits[index_s], score);
 
         //Add the card to the deck
         deck.push_back(card);
@@ -38,43 +38,45 @@ Deck::Deck(){
     //shuffle();
 };
 
-/*Shuffles the deck*/
+/* Shuffles the deck */
 void Deck::shuffle() {
     random_shuffle(deck.begin(), deck.end());
 }
 
-/*Gets size of the deck, or index of reference*/
+/* Gets size of the deck, or index of reference */
 int Deck::get_size() {
     return curr_size;
 }
 
-vector<Card> Deck::get_deck(){
+/* Returns the deck */
+vector<Card*> Deck::get_deck(){
     return deck;
 }
 
-/*Gets the top card of the deck*/
-Card Deck::draw() {
-    Card card = deck.back();
+/* Gets the top card of the deck */
+Card* Deck::draw() {
+    Card *card = deck.back();
     curr_size -= 1;
     deck.pop_back();
     return card;
 }
 
-Card Deck::draw_discard() {
-    Card card = discard_pile.back();
-    //curr_size -= 1;
+/* Draws the top card of the discard pile */
+Card* Deck::draw_discard() {
+    Card *card = discard_pile.back();
     discard_pile.pop_back();
     return card;
 }
 
-void Deck::discard(Card card){
+/* Puts the card on top of the discard pile */
+void Deck::discard(Card *card){
     discard_pile.push_back(card);
 }
 
-/*Prints deck to standard output*/
+/* Prints deck to standard output */
 void Deck::print_deck() {
     for (int i = 0; i < curr_size; i++){
-        Card card = deck.at(i);
-        cout << "Card at position " << i << " has value " << card.get_value() << " and suit " << card.get_suit() << endl;
+        Card *card = deck.at(i);
+        cout << "Card at position " << i << " has value " << card->get_value() << " and suit " << card->get_suit() << endl;
     }
 }

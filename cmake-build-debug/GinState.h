@@ -8,6 +8,9 @@
 #include "Move.h"
 #include "mcts.h"
 
+//CHECK WHATS WRONG WITH THE MELD SCORE?!?!!?!? Maybe when creating the card
+
+
 class GinState
 {
 public:
@@ -50,6 +53,8 @@ public:
         p1->deal(p2, deck);
 
         table = new Table(p1, p2, deck);
+
+        table->print_players();
     }
 
     void do_move(Move move)
@@ -81,6 +86,14 @@ public:
                 Card c1 = p->possible_new_melds[i]->meld[0];
                 Card c2 = p->possible_new_melds[i]->meld[1];
                 Card c3 = p->possible_new_melds[i]->meld[2];
+
+                /*
+                cout<<"Cards in possible new melds are: "<<endl;
+                c1.print_card();
+                c2.print_card();
+                c3.print_card();
+                */
+
                 p->new_meld(c1, c2, c3);
             }
         }
@@ -132,6 +145,7 @@ public:
 
     /* Returns a vector of all possible move sequences given current state */
     vector<Move> get_moves() const {
+        //table->print_players();
 
         //Makes the deck to be a discard pile
         if (table->current_deck->get_deck().size() == 0){
@@ -148,6 +162,8 @@ public:
             p = p2;
         }
 
+        //table->print_players();
+
         vector<Move> moves;
 
         //Evaluate the place to draw
@@ -160,18 +176,19 @@ public:
         table->evaluate_discard(p);
 
         //If we can discard from useless cards
-        if (p->useless_cards.size() == 0) {
-            cout<<"BRO1!!!!!"<<endl;
+        if (p->useless_cards.size() != 0) {
+            //cout<<"BRO1!!!!!"<<endl;
             if (p->discard_index.size() != 0){
                 for (int i_disc : p->discard_index) {
                     Move move = Move(p->draw_from, p->possible_new_melds, i_disc);
                     //move.print_move();
                     moves.push_back(move);
-                    cout<<"BRO2!!!!!"<<endl;
+                    //cout<<"BRO2!!!!!"<<endl;
                     //indices_useless_cards.pop_back();
                 }
             }
             else{
+                //cout<<"BRO1.1!!!!!"<<endl;
                 Move move = Move(p->draw_from, p->possible_new_melds, 0);
                 moves.push_back(move);
             }
@@ -194,7 +211,7 @@ public:
             m.print_move();
         }*/
 
-        cout<<moves.size()<<endl;
+        //cout<<"Number of moves is "<<moves.size()<<endl;
 
         return moves;
     }
@@ -272,13 +289,6 @@ public:
         }
 
         out<<"Current score is "<<p->get_score()<<endl;
-
-        out << " ";
-
-        delete(p1);
-        delete(p2);
-        delete(deck);
-        delete(table);
 
         out << player_markers[player_to_move] << " to move " << endl << endl;
     }
